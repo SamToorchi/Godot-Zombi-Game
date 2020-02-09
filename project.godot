@@ -16,7 +16,12 @@ _global_script_class_icons={
 [application]
 
 config/name="Zombi"
+run/main_scene="res://scene/test.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+dir="*res://scripts/directions.gd"
 
 [display]
 
