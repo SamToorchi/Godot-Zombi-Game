@@ -1,5 +1,6 @@
 extends "res://scripts/entity.gd"
 
+var state = "default"
 
 func controls_loop():
 	var LEFT = Input.is_action_pressed("ui_left")
@@ -11,9 +12,14 @@ func controls_loop():
 	movedir.y = -int(UP) + int(DOWN)
 
 
-
-	
 func _physics_process(delta):
+	match state:
+		"default":
+			state_default()
+		"swing":
+			state_swing()
+		
+func state_default():
 	controls_loop()
 	movement_loop()
 	spritedir_loop()
@@ -33,4 +39,14 @@ func _physics_process(delta):
 		anim_switch("walk")
 	else:
 		anim_switch("idle")
+	
+	if Input.is_action_just_pressed("a"):
+		use_item(preload("res://scene/sword.tscn"))
+
+func state_swing():
+	anim_switch("idle")
+	movement_loop()
+	damage_loop()
+	movedir = dir.center
+	
 
